@@ -1,0 +1,31 @@
+GET t0.dynamic.tiles.ditu.live.com/comp/ch/132121102120330?mkt=zh-CN&ur=CN&it=G,RL&n=z&og=697&cstl=vb
+
+###
+GET http://ecn.t0.tiles.virtualearth.net/tiles/r132121102120330.jpeg?g=129&mkt=zh-CN&stl=H
+
+###
+
+GET http://r2.tiles.ditu.live.com/tiles/r1321211021310101.png?g=41
+
+###
+GET http://dynamic.t0.tiles.ditu.live.com/comp/ch/132121102120330?it=G,VE,BX,L,LA&mkt=zh-cn,syr&n=z&og=111&ur=CN
+
+###
+GET http://dynamic.t3.tiles.ditu.live.com/comp/ch/132121102?it=G,VE,BX,L,LA&mkt=zh-cn,syr&n=z&og=111&ur=CN 
+
+
+###
+GET https://c.tile.openstreetmap.org/10/843/388.png
+
+
+###
+POST http://localhost:8000/services/bing/tiles/download
+
+###
+GET http://localhost:8000/services/bing/tiles/download
+
+###
+GET http://localhost:8000/services/bing/tiles/14/13731/6698.png
+
+###
+POST http://127.0.0.1:8000/h1
