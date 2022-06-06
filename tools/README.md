@@ -7,6 +7,8 @@
     mp.py Mapbox瓦片地图下载脚本，内含分布式任务调度功能。<python 虚拟运行环境目录>
 
     bing.py Bing Map 瓦片地图下载脚本.
+	
+	bing2.py BingMap 卫星瓦片地图分布式下载脚本.
 
     osm.py OpenStreetMap 瓦片地图下载脚本.
 
@@ -16,7 +18,7 @@
 
     mapbox.sql Mapbox瓦片地图下载任务调度数据库。
 
-    td.py 地图线路，行政区划下载。
+    td.py 地铁线路，行政区划下载。
 	
 	gaode.py 高德矢量地图下载。
 	

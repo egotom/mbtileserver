@@ -1,4 +1,4 @@
-#天地图遥感图：
+# 天地图卫星地图：
 #https://t3.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}&tk=a4ee5c551598a1889adfabff55a5fc27
 
 import threading
@@ -6,9 +6,9 @@ import requests
 import os
 import random
 
-token='a4ee5c551598a1889adfabff55a5fc27'
+token=['a4ee5c551598a1889adfabff55a5fc27','a600a26670a868d7bdec0104ccbda2ab','b2bff67af05d299697fe4821d2f84811']
 uri="https://t{}.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILECOL={}&TILEROW={}&TILEMATRIX={}&tk="+token
-tp=threading.BoundedSemaphore(32)
+tp=threading.BoundedSemaphore(16)
 uas = [
     "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 2.0.50727; Media Center PC 6.0)",
     "Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 1.0.3705; .NET CLR 1.1.4322)",

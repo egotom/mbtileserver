@@ -40,7 +40,7 @@ def dl(z,x,v=1):
         for y in range(cy,my):
             try:
                 quad = generateQuadKey(x, y, z)
-                r = requests.get( url3.format(random.choice([0,1,2,3]),quad) )
+                r = requests.get( url3.format(random.choice([0,1,2,3]), quad) )
                 if r.status_code == 200:
                     print('.', end='',flush=True)
                     #print(fn+'b_{}_{}_{}.png'.format(z,x,y))                    
@@ -58,7 +58,7 @@ def dl(z,x,v=1):
     tp.release()
 
 tl=[]
-for z in range(3,18):
+for z in range(1,19):
     mx=pow(2,z)
     for x in range(mx):
         t=threading.Thread(target=dl, args=(z,x,1,))

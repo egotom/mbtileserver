@@ -274,7 +274,7 @@ func (ts *Tileset) updateHandler(w http.ResponseWriter, r *http.Request) {
 	x,_:=strconv.ParseInt(r.FormValue("x"), 10, 64)
 	y,_:=strconv.ParseInt(r.FormValue("y"), 10, 64)
 	z,_:=strconv.ParseInt(r.FormValue("z"), 10, 64)
-	// fmt.Println(z,x,y)
+	//fmt.Println(z,x,y)
 	res := `{"code":200,"message":"下载成功！","image":"----" }`
 	if x >0 && y>0 && z>0{
 		_, err := ts.get(z, x, y)

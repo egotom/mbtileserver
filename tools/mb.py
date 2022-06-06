@@ -1,3 +1,4 @@
+#   mapbox卫星地图下载
 import mariadb 
 import requests
 from uuid import getnode

@@ -1,3 +1,4 @@
+#   openstreetmap 矢量地图下载
 import threading
 import requests
 import os

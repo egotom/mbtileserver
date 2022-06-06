@@ -2,10 +2,10 @@
 #import matplotlib.pyplot as plt # plt 用于显示图片
 #import matplotlib.image as mpimg # mpimg 用于读取图片
 #import numpy as np
-from pymbtiles import  MBtiles
+from pymbtiles import  MBtiles,Tile
 import os
 
-fn = 'Satellite.mbtiles'
+fn = 'tilesets/bing3.mbtiles'
 db = None
 if os.path.exists(fn):
     db = MBtiles(fn, mode='r+')
@@ -31,6 +31,7 @@ def addTilesEx(dirs, name=""):
     db.meta['basename'] = ""
 
     for root, dirs, files in os.walk(dirs, topdown=False):
+        tls=[]
         for d in files:
             fn=os.path.join(root, d)            
             a = d.split("_")
@@ -43,10 +44,18 @@ def addTilesEx(dirs, name=""):
                 fp = open(fn, "rb")        
                 tile_data=fp.read()
                 fp.close()
-                db.write_tile(z, x, y, tile_data)  
-                print(fn)
-                
-#addTilesEx("./360Safe/","mapbox")
+                # db.write_tile(z, x, y, tile_data)  
+                # print(fn)
+                tls.append(Tile(z=z, x=x, y=y, data=tile_data))
+                if len(tls) > 60:
+                    print(fn)
+                    db.write_tiles(tuple(tls)) 
+                    tls=[]
+
+        if len(tls) > 0:
+            db.write_tiles(tuple(tls))  
+
+addTilesEx("./tools/bing2/", "bing3")
 
 def t(z=12, x=1179, y=889):
     tile_data = db.read_tile(z, x, y)
@@ -54,7 +63,7 @@ def t(z=12, x=1179, y=889):
         fp=open("{}_{}_{}.jpg".format(z,x,y),"wb")
         fp.write(tile_data)
         fp.close()
-t()
+# t()
 
 # tiles = (
 #     Tile(z=1, x=0, y=0, tile_data=first_tile),

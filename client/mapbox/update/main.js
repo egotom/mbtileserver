@@ -358,7 +358,7 @@ $(function() {
 		var progress = value / total;
 		bar.animate(progress);
 		bar.setText(Math.round(progress * 100) + '<span>%</span>');
-		$("#progress-subtitle").html(value.toLocaleString() + " <span>out of</span> " + total.toLocaleString())
+		$("#progress-subtitle").html(value.toLocaleString() + " <span> / </span> " + total.toLocaleString())
 	}
 
 	function logItem(x, y, z, text) {

@@ -1,6 +1,62 @@
-
+import geojson as geo
 from datetime import datetime
-import os,requests
+import requests,os,json
+
+# 合并Geojson
+def merge(path,fn):
+    features=[]
+    for root, dirs, files in os.walk(path, topdown=False):
+        for d in files:
+            ffn=os.path.join(root, d) 
+            with open(ffn,'r') as fp:
+                try:
+                    obj = json.loads(fp.read())
+                    if obj.get('features'):
+                        features = features + obj.get('features')
+                    else:
+                        print(ffn," ,不是有效的Genjson文件!")
+                except Exception as e:
+                    print(ffn,"\t :",e)
+                    
+    gf = open(fn,'w')
+    geo.dump(geo.FeatureCollection(features), gf)
+    gf.close()
+
+merge('./geo','dt.json')
+
+
+# 地铁线路 JSON -> Geojson 格式转换
+def j2g(obj,fn):
+    #obj=json.loads(ctx)
+    gf=open(fn, 'w')
+    pois=[]
+    features=[]
+    for l in obj.get("l"):
+        Info = {
+            "kn": l.get("kn"),
+            "ln": l.get("ln"),
+            "cl": l.get("cl"),
+            "ls": l.get("ls")
+        }
+        print(Info)
+        ls=[]
+        for s in l.get("st"):
+            [lng, lat] = s.get("sl").split(",")
+            lng, lat = float(lng), float(lat)
+            ls.append((lng, lat))
+            if s.get("poiid") not in pois:
+                station={
+                    "n":s.get("n"),
+                    "sp":s.get("sp")
+                }
+                p=geo.Point((float(lng),float(lat)))
+                features.append(geo.Feature(geometry = p, id = s.get("poiid"), properties=station))
+                pois.append(s.get("poiid"))
+                
+        features.append(geo.Feature(geometry=geo.LineString(ls), properties=Info))
+
+    geo.dump(geo.FeatureCollection(features), gf)
+    gf.close()
 
 
 # 地铁线路
@@ -63,7 +119,8 @@ def subway():
         ts = round(datetime.timestamp(now)*100)
         print(it.get("id"),it.get("name"))
         rd = requests.get( drw.format(ts, it.get("id"), it.get("cityname")) )
-        #rd.json()
+        os.makedirs("geo", exist_ok=True)
+        j2g(rd.json(), './geo/{}_drw_{}.json'.format(it.get("id"), it.get("cityname")))
         fp = open('{}_drw_{}.json'.format(it.get("id"), it.get("cityname")), 'w')
         fp.write(rd.text)
         fp.close
