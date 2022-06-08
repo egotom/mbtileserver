@@ -32,9 +32,6 @@ func (ts *Tileset) get(z int64, x int64, y int64)([]byte, error ){
 	
 	case "bing":
 		url = fmt.Sprintf("http://dynamic.t%s.tiles.ditu.live.com/comp/ch/%s?it=G,VE,BX,L,LA&mkt=zh-cn,syr&n=z&og=111&ur=CN" ,sb[0], quad)
-		if z < 10 {
-			url = fmt.Sprintf("http://r%s.tiles.ditu.live.com/tiles/r%s.png?g=41", sb[0], quad)
-		}
 	
 	case "bing1":
 		url = fmt.Sprintf("http://r%s.tiles.ditu.live.com/tiles/r%s.png?g=41", sb[0], quad)

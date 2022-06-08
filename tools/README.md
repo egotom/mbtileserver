@@ -10,6 +10,8 @@
 	
 	bing2.py BingMap 卫星瓦片地图分布式下载脚本.
 
+    task.py CSV 坐标生成bing2任务数据库表。
+     
     osm.py OpenStreetMap 瓦片地图下载脚本.
 
     poi.py 高德POI 下载脚本。

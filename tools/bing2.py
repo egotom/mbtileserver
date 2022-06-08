@@ -32,9 +32,10 @@ def generateQuadKey(x, y, z):
 		quadKey.append(str(digit))
 	return "".join(quadKey)
 
+tname = "bing3"
 conn = mariadb.connect(host="localhost", database="bing2", user="root", password="v")
 cur = conn.cursor() 
-cur.execute("SELECT z, p, p2, url FROM info WHERE name=?", ("bing2",)) 
+cur.execute("SELECT z, p, p2, url FROM info WHERE name=?", (tname,)) 
 taskList = []
 uri=""
 for z, p, p2, url in cur:
@@ -102,7 +103,7 @@ def dl(z, x, cy, my):
     tp.acquire()
     
     # cy = cy
-    fn='./bing2/{}/{}/'.format(z,x)
+    fn='./{}/{}/{}/'.format(tname,z,x)
     os.makedirs(fn, exist_ok=True)
     # for d in os.listdir(fn):
     #     dl=d.split('_')
@@ -172,7 +173,7 @@ for z, x, y in cur:
     quad = generateQuadKey(x, y, z)
     r = requests.get( uri.format(random.choice([0,1,2,3]), quad) )
     if r.status_code == 200:                  
-        fp = open('./bing2/{}/{}/b_{}_{}_{}.png'.format(z,x, z, x, y), 'wb')
+        fp = open('./{}/{}/{}/b_{}_{}_{}.png'.format(tname,z,x, z, x, y), 'wb')
         fp.write(r.content)
         fp.close()
         cur.execute("delete from error where z =? and x=? and y=? ;", (z, x, y))   
@@ -183,7 +184,7 @@ conn.commit()
 conn.close()
 
 print("清理文件...")
-dirs="./bing2/"
+dirs="./{}/".format(tname)
 for root, dirs, files in os.walk(dirs, topdown=False):
     for d in files:
         fn=os.path.join(root, d)
