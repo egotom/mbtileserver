@@ -1,0 +1,23 @@
+{
+    "attribution": "<a href='http://10.11.106.186:8000/services/dem_rgb'>dem</a>",
+    "autoscale": true,
+    "bounds": [-180,-85,180,85],
+    "cacheControl": "max-age=43200,s-maxage=604800",
+    "center": [0,0,3],
+    "created": 1604614692000,
+    "description": "png or webp file extension must be used. height = -10000 + ((R * 256 * 256 + G * 256 + B) * 0.1)",
+    "encoding": "eulee",
+    "filesize": 0,
+    "format": "png",
+    "id": "eulee-terrain-dem-v1",
+    "mapbox_logo": true,
+    "maxzoom": 15,
+    "minzoom": 0,
+    "modified": 1605833570000,
+    "name": "Eulee Terrain-DEM v1",
+    "private": false,
+    "scheme": "xyz",
+    "tilejson": "2.2.0",
+    "tiles": ["http://localhost:5000/tile/{z}/{x}/{y}"],
+    "webpage": "http://10.11.106.186:8000/services/dem_rgb"
+}

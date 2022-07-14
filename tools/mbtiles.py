@@ -5,7 +5,7 @@
 from pymbtiles import  MBtiles,Tile
 import os
 
-fn = 'tilesets/bing3.mbtiles'
+fn = '../tilesets/bing.mbtiles'
 db = None
 if os.path.exists(fn):
     db = MBtiles(fn, mode='r+')
@@ -47,7 +47,7 @@ def addTilesEx(dirs, name=""):
                 # db.write_tile(z, x, y, tile_data)  
                 # print(fn)
                 tls.append(Tile(z=z, x=x, y=y, data=tile_data))
-                if len(tls) > 60:
+                if len(tls) > 200:
                     print(fn)
                     db.write_tiles(tuple(tls)) 
                     tls=[]
@@ -55,7 +55,7 @@ def addTilesEx(dirs, name=""):
         if len(tls) > 0:
             db.write_tiles(tuple(tls))  
 
-addTilesEx("./tools/bing2/", "bing3")
+addTilesEx("./bing/", "bing")
 
 def t(z=12, x=1179, y=889):
     tile_data = db.read_tile(z, x, y)

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Add 3D terrain to a map</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1Ijoia2Vpd2VuZyIsImEiOiJjbDBxMjByYW8wOGU3M2NxbmJ2Zno2Nm1zIn0.txEgI66SG9Xwd1kHSc1bqg';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        zoom: 14,
+        center: [105.052883,35.693241],
+        pitch: 85,
+        bearing: 80,
+        style: {
+			'version': 8,
+			'sources': {
+				'raster-tiles': {
+					'type': 'raster',
+					'tiles': [
+						"http://10.11.4.29:8000/services/bing3/tiles/{z}/{x}/{y}.jpg",
+						"http://10.11.106.139:8000/services/bing3/tiles/{z}/{x}/{y}.jpg"					
+					],
+					'tileSize': 256,
+					'attribution':'Map tiles by Bing'
+				}
+			},
+			'layers': [
+				{
+					'id': 'simple-tiles',
+					'type': 'raster',
+					'source': 'raster-tiles',
+					'minzoom': 0,
+					'maxzoom': 18
+				}
+			]
+		}
+    });
+
+    map.on('load', () => {
+        map.addSource('mapbox-dem', {
+            'type': 'raster-dem',
+            'tiles': ['http://10.11.106.186:800/tile/{z}/{x}/{y}','http://10.11.2.96:800/tile/{z}/{x}/{y}'],
+            'tileSize': 256,
+            'maxzoom': 14
+        });
+        // add the DEM source as a terrain layer with exaggerated height
+        map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+
+        // add a sky layer that will show when the map is highly pitched
+        map.addLayer({
+            'id': 'sky',
+            'type': 'sky',
+            'paint': {
+                'sky-type': 'atmosphere',
+                'sky-atmosphere-sun': [0.0, 0.0],
+                'sky-atmosphere-sun-intensity': 15
+            }
+        });
+    });
+	
+</script>
+
+</body>
+</html>

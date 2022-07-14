@@ -10,4 +10,5 @@ mbtileserver
 coverage*
 *.mbtiles
 *.exe
+*.tif
 bing/*

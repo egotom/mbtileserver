@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>Example of Terrain-RGB</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css" rel="stylesheet"></link>
+    <style>
+      #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoidHlwZWJyb29rIiwiYSI6ImNqNHVyaTc5dDBuazczMm1jenl3cG8wb3IifQ.2UEZ-jiHgHvYYqVirXhgpw';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        zoom: 11,
+        center: [105.22116, 35.51587],
+        pitch: 85,
+        bearing: 80,
+        style: 'mapbox://styles/mapbox-map-design/ckhqrf2tz0dt119ny6azh975y',
+        hash: true
+      });
+      map.on('load', function () {
+        map.addSource('eulee-dem', {
+          'type': 'raster-dem',
+          'url': 'style/dem.json',	
+          'tileSize': 256,
+          'maxzoom': 15
+        });
+        map.setTerrain({ 'source': 'eulee-dem', 'exaggeration': 1.5 });
+
+      });
+    </script>
+  </body>
+</html>
